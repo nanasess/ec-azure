@@ -32,7 +32,7 @@ require_once DATA_REALDIR . 'module/Tar.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Upgrade_Download.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class LC_Page_Upgrade_Download extends LC_Page_Upgrade_Base {
 

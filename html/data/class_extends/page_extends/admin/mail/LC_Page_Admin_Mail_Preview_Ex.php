@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'pages/admin/mail/LC_Page_Admin_Mail_Preview.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Mail_Preview_Ex.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Admin_Mail_Preview_Ex extends LC_Page_Admin_Mail_Preview {
 

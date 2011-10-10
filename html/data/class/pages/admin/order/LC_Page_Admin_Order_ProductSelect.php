@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Order_ProductSelect.php 21262 2011-09-27 06:46:30Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Admin_Order_ProductSelect extends LC_Page_Admin_Ex {
 
@@ -210,7 +210,7 @@ class LC_Page_Admin_Order_ProductSelect extends LC_Page_Admin_Ex {
 
             switch ($key) {
                 case 'search_name':
-                    $where .= " AND name ILIKE ?";
+                    $where .= " AND name LIKE ?";
                     $bind[] = "%".$val."%";
                     break;
                 case 'search_category_id':

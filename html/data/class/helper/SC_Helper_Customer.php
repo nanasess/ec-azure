@@ -27,7 +27,7 @@
  *
  * @package Helper
  * @author Hirokazu Fukuda
- * @version $Id: SC_Helper_Customer.php 21221 2011-08-26 01:36:12Z sire $
+ * @version $Id$
  */
 class SC_Helper_Customer {
 

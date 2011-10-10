@@ -229,13 +229,15 @@ class SC_SelectSql {
         $this->group =  "GROUP BY " . $group;
 
     }
-
+    /**
+     * @deprecated SC_Query::setLimitOffset() を使用してください
+     */
     function setLimitOffset( $limit, $offset ){
 
         if ( is_numeric($limit) and is_numeric($offset) ){
 
-            $this->limit = " LIMIT " .$limit;
-            $this->offset = " OFFSET " .$offset;
+            //$this->limit = " LIMIT " .$limit;
+            //$this->offset = " OFFSET " .$offset;
         }
     }
 

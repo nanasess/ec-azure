@@ -30,7 +30,7 @@ require_once CLASS_REALDIR . 'module/SC_Module.php';
  *
  * @package module
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Module_Payment.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class SC_Module_Payment extends SC_Module {
     /** 支払方法 */

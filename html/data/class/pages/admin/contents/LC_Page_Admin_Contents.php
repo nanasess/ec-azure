@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Contents.php 21232 2011-09-04 15:44:01Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Contents extends LC_Page_Admin_Ex {
 

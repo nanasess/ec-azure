@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Entry_EmailMobile.php 20910 2011-05-04 15:58:16Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Entry_EmailMobile extends LC_Page_Ex {
 

@@ -10,7 +10,7 @@
   *
   * @package Helper
   * @author LOCKON CO.,LTD.
-  * @version $Id: SC_Helper_Session.php 21194 2011-08-17 01:39:55Z Seasoft $
+  * @version $Id$
   */
 class SC_Helper_Session {
 
@@ -32,6 +32,11 @@ class SC_Helper_Session {
                                   array(&$this, 'sfSessWrite'),
                                   array(&$this, 'sfSessDestroy'),
                                   array(&$this, 'sfSessGc'));
+
+     }
+
+     function __destruct() {
+         session_write_close();
      }
 
      // }}}

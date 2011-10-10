@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_System_Masterdata.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_System_Masterdata extends LC_Page_Admin_Ex {
 
@@ -132,8 +132,14 @@ class LC_Page_Admin_System_Masterdata extends LC_Page_Admin_Ex {
      * @return array マスターデータ名の配列
      */
     function getMasterDataNames($ignores = array()) {
-        $dbFactory = SC_DB_DBFactory_Ex::getInstance();
-        $arrMasterDataName = $dbFactory->findTableNames("mtb_");
+        $objQuery =& SC_Query_Ex::getSingletonInstance();
+
+        $arrTables = $objQuery->listTables();
+        foreach ($arrTables as $table_name) {
+            if (preg_match('/^mtb_/', $table_name)) {
+                $arrMasterDataName[] = $table_name;
+            }
+        }
 
         $i = 0;
         foreach ($arrMasterDataName as $val) {

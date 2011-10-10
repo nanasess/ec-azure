@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Regist.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class LC_Page_Regist extends LC_Page_Ex {
 

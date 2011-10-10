@@ -28,7 +28,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author CUORE CO.,LTD.
- * @version $Id: LC_Page_Mypage_DownLoad.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Mypage_DownLoad extends LC_Page_Ex {
 
@@ -81,7 +81,6 @@ class LC_Page_Mypage_DownLoad extends LC_Page_Ex {
         if (!$objCustomer->isLoginSuccess()){
             SC_Utils_Ex::sfDispSiteError(DOWNFILE_NOT_FOUND,"",true);
         }
-
         // パラメーターチェック
         $objFormParam = new SC_FormParam_Ex();
         $this->lfInitParam($objFormParam);
@@ -102,7 +101,6 @@ class LC_Page_Mypage_DownLoad extends LC_Page_Ex {
      */
     function sendResponse() {
         $this->objDisplay->noAction();
-
         // パラメーター取得
         $customer_id = $_SESSION['customer']['customer_id'];
         $order_id = $_GET['order_id'];
@@ -118,6 +116,8 @@ class LC_Page_Mypage_DownLoad extends LC_Page_Ex {
         }
         //ファイルそのものが無い場合もとりあえずNG
         $realpath = DOWN_SAVE_REALDIR . $arrForm["down_realfilename"];
+        $objBlob = new SC_Helper_Blob_Ex();
+        $objBlob->getBlob("downsave", $arrForm['down_realfilename'], $realpath);
         if (!file_exists($realpath)){
             SC_Utils_Ex::sfDispSiteError(DOWNFILE_NOT_FOUND,"",true);
         }

@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Contents_Recommend.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class LC_Page_Admin_Contents_Recommend extends LC_Page_Admin_Ex {
 
@@ -156,7 +156,7 @@ class LC_Page_Admin_Contents_Recommend extends LC_Page_Admin_Ex {
     function getRecommendProducts(){
         $objQuery = $objQuery =& SC_Query_Ex::getSingletonInstance();
         $col = 'dtb_products.name,dtb_products.main_list_image,dtb_best_products.*';
-        $table = 'dtb_best_products INNER JOIN dtb_products USING (product_id)';
+        $table = 'dtb_best_products INNER JOIN dtb_products ON dtb_best_products.product_id = dtb_products.product_id';
         $where = 'dtb_best_products.del_flg = 0';
         $order = 'rank';
         $objQuery->setOrder($order);

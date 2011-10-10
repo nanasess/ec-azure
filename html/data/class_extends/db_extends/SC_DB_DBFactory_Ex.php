@@ -25,6 +25,7 @@
 require_once CLASS_REALDIR . 'db/SC_DB_DBFactory.php';
 require_once CLASS_EX_REALDIR . 'db_extends/dbfactory/SC_DB_DBFactory_MYSQL_Ex.php';
 require_once CLASS_EX_REALDIR . 'db_extends/dbfactory/SC_DB_DBFactory_PGSQL_Ex.php';
+require_once CLASS_EX_REALDIR . 'db_extends/dbfactory/SC_DB_DBFactory_SQLSRV_Ex.php';
 
 /**
  * DBに依存した処理を抽象化するファクトリークラス(拡張).
@@ -33,7 +34,7 @@ require_once CLASS_EX_REALDIR . 'db_extends/dbfactory/SC_DB_DBFactory_PGSQL_Ex.p
  *
  * @package DB
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_DB_DBFactory_Ex.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class SC_DB_DBFactory_Ex extends SC_DB_DBFactory {
 
@@ -54,6 +55,10 @@ class SC_DB_DBFactory_Ex extends SC_DB_DBFactory {
 
         case 'pgsql':
             return new SC_DB_DBFactory_PGSQL_Ex();
+            break;
+
+        case 'sqlsrv':
+            return new SC_DB_DBFactory_SQLSRV_Ex();
             break;
 
         default:

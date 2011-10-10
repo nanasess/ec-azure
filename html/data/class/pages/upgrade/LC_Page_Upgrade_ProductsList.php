@@ -29,7 +29,7 @@ require_once 'LC_Page_Upgrade_Base.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Upgrade_ProductsList.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Upgrade_ProductsList extends LC_Page_Upgrade_Base {
 

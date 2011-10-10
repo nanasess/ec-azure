@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'batch/SC_Batch.php';
  *
  * @package Batch
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Batch_Update.php 21120 2011-08-03 13:37:38Z kajiwara $
+ * @version $Id$
  */
 class SC_Batch_Update extends SC_Batch {
 

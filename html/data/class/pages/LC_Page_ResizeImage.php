@@ -30,7 +30,7 @@ require_once DATA_REALDIR . 'module/gdthumb.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_ResizeImage.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class LC_Page_ResizeImage extends LC_Page_Ex {
 
@@ -53,7 +53,7 @@ class LC_Page_ResizeImage extends LC_Page_Ex {
      */
     function process() {
         $objThumb = new gdthumb();
-
+        $objBlob = new SC_Helper_Blob_Ex();
         $file = NO_IMAGE_REALDIR;
 
         // NO_IMAGE_REALDIR以外のファイル名が渡された場合、ファイル名のチェックを行う
@@ -63,12 +63,14 @@ class LC_Page_ResizeImage extends LC_Page_Ex {
             if (!$this->lfCheckFileName()) {
                 GC_Utils_Ex::gfPrintLog('invalid access :resize_image.php $_GET[\'image\']=' . $_GET['image']);
             }
-            else if (file_exists(IMAGE_SAVE_REALDIR . $_GET['image'])) {
-                $file = IMAGE_SAVE_REALDIR . $_GET['image'];
+//            else if (file_exists(IMAGE_SAVE_REALDIR . $_GET['image'])) {
+              else {
+                  $objBlob->getBlob("saveimage", $_GET['image'], IMAGE_TEMP_REALDIR . $_GET['image']);
+                  $file = IMAGE_TEMP_REALDIR . $_GET['image'];
             }
         }
 
-        $objThumb->Main($file, $_GET['width'], $_GET['height'], "", true);
+        $ret = $objThumb->Main($file, $_GET['width'], $_GET['height'], "", true);
     }
 
     /**

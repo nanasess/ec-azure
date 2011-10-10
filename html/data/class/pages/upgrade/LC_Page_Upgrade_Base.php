@@ -10,7 +10,7 @@ require_once DATA_REALDIR . 'module/HTTP/Request.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Upgrade_Base.php 21241 2011-09-16 10:49:27Z shutta $
+ * @version $Id$
  */
 class LC_Page_Upgrade_Base extends LC_Page_Ex {
     function isValidIP() {

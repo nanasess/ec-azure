@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/mypage/LC_Page_AbstractMypage_Ex.p
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Mypage_MailView.php 21150 2011-08-08 11:24:33Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Mypage_MailView extends LC_Page_AbstractMypage_Ex {
 

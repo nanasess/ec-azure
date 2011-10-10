@@ -26,7 +26,7 @@
  *
  * @package Util
  * @author LOCKON CO.,LTD.
- * @version $Id: GC_Utils.php 21028 2011-07-12 04:22:28Z habu $
+ * @version $Id$
  */
 class GC_Utils {
 

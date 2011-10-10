@@ -29,7 +29,7 @@
  *
  * @package Helper
  * @author Kentaro Ohkouchi
- * @version $Id: SC_Helper_Purchase.php 21259 2011-09-26 16:04:48Z tao $
+ * @version $Id$
  */
 class SC_Helper_Purchase {
 
@@ -293,7 +293,10 @@ class SC_Helper_Purchase {
      *
      * @param bool $has_shipment_item 配送商品を保有している配送先のみ返す。
      */
-    function getShippingTemp($has_shipment_item) {
+    function getShippingTemp($has_shipment_item = true) {
+        if (SC_Utils_Ex::isBlank($_SESSION['shipping'])) {
+            return null;
+        }
         if ($has_shipment_item) {
             $arrReturn = array();
             foreach ($_SESSION['shipping'] as $key => $arrVal) {
@@ -497,17 +500,17 @@ class SC_Helper_Purchase {
         // 削除されていない支払方法を取得
         $where = 'del_flg = 0 AND payment_id IN (' . implode(', ', array_pad(array(), count($arrPaymentIds), '?')) . ')';
         $objQuery->setOrder("rank DESC");
-        $payments = $objQuery->select("payment_id, payment_method, rule, upper_rule, note, payment_image, charge", "dtb_payment", $where, $arrPaymentIds);
+        $payments = $objQuery->select("payment_id, payment_method, rule_max, upper_rule, note, payment_image, charge", "dtb_payment", $where, $arrPaymentIds);
         foreach ($payments as $data) {
             // 下限と上限が設定されている
-            if (strlen($data['rule']) != 0 && strlen($data['upper_rule']) != 0) {
-                if ($data['rule'] <= $total && $data['upper_rule'] >= $total) {
+            if (strlen($data['rule_max']) != 0 && strlen($data['upper_rule']) != 0) {
+                if ($data['rule_max'] <= $total && $data['upper_rule'] >= $total) {
                     $arrPayment[] = $data;
                 }
             }
             // 下限のみ設定されている
-            elseif (strlen($data['rule']) != 0) {
-                if($data['rule'] <= $total) {
+            elseif (strlen($data['rule_max']) != 0) {
+                if($data['rule_max'] <= $total) {
                     $arrPayment[] = $data;
                 }
             }

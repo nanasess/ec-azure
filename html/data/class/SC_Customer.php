@@ -99,7 +99,7 @@ class SC_Customer {
                  WHERE customer_id = ?
             ) AS addrs
 __EOS__;
-        $objQuery->setOrder("other_deliv_id IS NULL DESC, other_deliv_id DESC");
+        $objQuery->setOrder("CASE WHEN other_deliv_id is null THEN -1 ELSE 0 END, other_deliv_id DESC");
         return $objQuery->select("*", $from, "", array($customer_id, $customer_id));
     }
 

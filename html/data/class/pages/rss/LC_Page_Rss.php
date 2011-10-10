@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Rss.php 21121 2011-08-03 17:38:15Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_RSS extends LC_Page_Ex {
 

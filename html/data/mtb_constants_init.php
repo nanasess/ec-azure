@@ -218,7 +218,7 @@ define('IMAGE_SAVE_REALDIR', HTML_REALDIR . "upload/save_image/");
 /** 画像一時保存URL */
 define('IMAGE_TEMP_URLPATH', ROOT_URLPATH . "upload/temp_image/");
 /** 画像保存先URL */
-define('IMAGE_SAVE_URLPATH', ROOT_URLPATH . "upload/save_image/");
+define('IMAGE_SAVE_URLPATH', "https://" . CLOUD_STORAGE_ACCOUNT .".blob.core.windows.net/saveimage/");
 /** RSS用画像一時保存URL */
 define('IMAGE_TEMP_RSS_URL', HTTP_URL . "upload/temp_image/");
 /** RSS用画像保存先URL */
@@ -365,7 +365,7 @@ define('CV_PAYMENT_LIMIT', 14);
 /** 商品レビューでURL書き込みを許可するか否か */
 define('REVIEW_ALLOW_URL', 0);
 /** Pear::Mail バックエンド:mail|smtp|sendmail */
-define('MAIL_BACKEND', "smtp");
+define('MAIL_BACKEND', "mail");
 /** SMTPサーバー */
 define('SMTP_HOST', "127.0.0.1");
 /** SMTPポート */

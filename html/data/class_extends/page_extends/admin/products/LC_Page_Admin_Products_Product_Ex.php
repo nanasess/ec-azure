@@ -57,6 +57,38 @@ class LC_Page_Admin_Products_Product_Ex extends LC_Page_Admin_Products_Product {
     }
 
     /**
+     * アップロードファイルをBlobに保存する
+     *
+     * @param object $objUpFile SC_UploadFileインスタンス
+     * @param object $objDownFile SC_UploadFileインスタンス
+     * @param integer $product_id 商品ID
+     * @return void
+     */
+    function lfSaveUploadFiles(&$objUpFile, &$objDownFile, $product_id) {
+        // TODO: SC_UploadFile::moveTempFileの画像削除条件見直し要
+        $objImage = new SC_Image_Ex($objUpFile->temp_dir);
+        $objBlob = new SC_Helper_Blob_Ex();
+        $arrKeyName = $objUpFile->keyname;
+        $arrTempFile = $objUpFile->temp_file;
+        $arrSaveFile = $objUpFile->save_file;
+        $containerName = "saveimage";
+        $arrImageKey = array();
+        foreach($arrTempFile as $key => $temp_file) {
+            if($temp_file) {
+                $objBlob->saveBlob($containerName, $temp_file, $objImage->tmp_dir.$temp_file);
+                unlink($objImage->tmp_dir.$temp_file);
+                $arrImageKey[] = $arrKeyName[$key];
+                if(!empty($arrSaveFile[$key])
+                        && !$this->lfHasSameProductImage($product_id, $arrImageKey, $arrSaveFile[$key])
+                        && !in_array($temp_file, $arrSaveFile)) {
+                    $objBlob->deleteBlob($containerName, $arrSaveFile[$key]);
+                }
+            }
+        }
+        $objDownFile->moveTempDownFile();
+    }
+
+    /**
      * デストラクタ.
      *
      * @return void

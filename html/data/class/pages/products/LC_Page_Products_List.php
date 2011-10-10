@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Products_List.php 21265 2011-09-29 09:50:08Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Products_List extends LC_Page_Ex {
 
@@ -274,26 +274,24 @@ class LC_Page_Products_List extends LC_Page_Ex {
                 }
                 $order = <<< __EOS__
                     (
-                        SELECT
+                        SELECT TOP 1
                              T3.rank
                         FROM
                             $dtb_product_categories T2
                             JOIN dtb_category T3
-                                USING (category_id)
+                              ON T2.category_id = T3.category_id
                         WHERE T2.product_id = alldtl.product_id
                         ORDER BY T3.rank DESC, T2.rank DESC
-                        LIMIT 1
                     ) DESC
                     ,(
-                        SELECT
+                        SELECT TOP 1
                             T2.rank
                         FROM
                             $dtb_product_categories T2
                             JOIN dtb_category T3
-                                USING (category_id)
+                              ON T2.category_id = T3.category_id
                         WHERE T2.product_id = alldtl.product_id
                         ORDER BY T3.rank DESC, T2.rank DESC
-                        LIMIT 1
                     ) DESC
                     ,product_id
 __EOS__;
@@ -453,7 +451,7 @@ __EOS__;
         // 分割したキーワードを一つずつwhere文に追加
         foreach ($names as $val) {
             if ( strlen($val) > 0 ) {
-                $searchCondition['where']    .= " AND ( alldtl.name ILIKE ? OR alldtl.comment3 ILIKE ?) ";
+                $searchCondition['where']    .= " AND ( alldtl.name LIKE ? OR alldtl.comment3 LIKE ?) ";
                 $searchCondition['arrval'][]  = "%$val%";
                 $searchCondition['arrval'][]  = "%$val%";
             }

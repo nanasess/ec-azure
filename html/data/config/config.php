@@ -1,0 +1,58 @@
+<?php
+    define ('ECCUBE_INSTALL', 'ON');
+    define ('HTTP_URL', 'http://localhost/ec-cube/');
+    define ('HTTPS_URL', 'http://localhost/ec-cube/');
+    define ('ROOT_URLPATH', '/ec-cube/');
+    define ('DOMAIN_NAME', '');
+    define ('DB_TYPE', 'sqlsrv');
+    define ('DB_USER', 'eccube@eudfvfebi6');
+    define ('DB_PASSWORD', 'dbpassword');
+    define ('DB_SERVER', 'tcp:eudfvfebi6.database.windows.net');
+    define ('DB_NAME', 'azure_cube_db');
+    define ('DB_PORT', '1433');
+    define ('ADMIN_DIR', 'admin/');
+    define ('ADMIN_FORCE_SSL', FALSE);
+    define ('ADMIN_ALLOW_HOSTS', 'a:0:{}');
+    define ('AUTH_MAGIC', 'tainugiadeauaehopedepriochouraitaijeacho');
+    define ('PASSWORD_HASH_ALGOS', 'sha256');
+    define('CLOUD_STORAGE_ACCOUNT', "cubecamp");
+    define('CLOUD_STORAGE_KEY', "aiIULTxrqWE+RAkP5lbyH1Rf8+ISawOFXGpJLcDXi+K4+mmLNFMPftTV+4EK6gBk++Ks1qe5e566HIlsrgNQwA==");
+/* For AZURE CONFIG FILE SETTING
+    $eccube_install = azure_getconfig(“EC-CUBE.ECCUBE_INSTALL”);
+    define ('ECCUBE_INSTALL', $eccube_install);
+    $eccube_http_url = azure_getconfig(“EC-CUBE.HTTP_URL”);
+    define ('HTTP_URL', $eccube_http_url);
+    $eccube_https_url = azure_getconfig(“EC-CUBE.HTTPS_URL”);
+    define ('HTTPS_URL', $eccube_https_url);
+    $eccube_root_urlpath = azure_getconfig(“EC-CUBE.ROOT_URLPATH”);
+    define ('ROOT_URLPATH', $eccube_root_urlpath);
+    $eccube_domain_name = azure_getconfig(“EC-CUBE.DOMAIN_NAME”);
+    define ('DOMAIN_NAME', $eccube_domain_name);
+    $eccube_db_type = azure_getconfig(“EC-CUBE.DB_TYPE”);
+    define ('DB_TYPE', $eccube_db_type);
+    $eccube_db_user = azure_getconfig(“EC-CUBE.DB_USER”);
+    define ('DB_USER', $eccube_db_user);
+    $eccube_db_password = azure_getconfig(“EC-CUBE.DB_PASSWORD”);
+    define ('DB_PASSWORD', $eccube_db_password);
+    $eccube_db_server = azure_getconfig(“EC-CUBE.DB_SERVER”);
+    define ('DB_SERVER', $eccube_db_server);
+    $eccube_db_name = azure_getconfig(“EC-CUBE.DB_NAME”);
+    define ('DB_NAME', $eccube_db_name);
+    $eccube_db_port = azure_getconfig(“EC-CUBE.DB_PORT”);
+    define ('DB_PORT', $eccube_db_port);
+    $eccube_admin_dir = azure_getconfig(“EC-CUBE.ADMIN_DIR”);
+    define ('ADMIN_DIR', $eccube_admin_dir);
+    $eccube_admin_force_ssl = azure_getconfig(“EC-CUBE.ADMIN_FORCE_SSL”);
+    define ('ADMIN_FORCE_SSL', $eccube_admin_force_ssl);
+    $eccube_root_allow_hosts = azure_getconfig(“EC-CUBE.ADMIN_ALLOW_HOSTS”);
+    define ('ADMIN_ALLOW_HOSTS', $eccube_allow_hosts);
+    $eccube_auth_magic = azure_getconfig(“EC-CUBE.AUTH_MAGIC”);
+    define ('AUTH_MAGIC', $eccube_auth_magic);
+    $eccube_password_hash_algos = azure_getconfig(“EC-CUBE.PASSWORD_HASH_ALGOS”);
+    define ('PASSWORD_HASH_ALGOS', $eccube_password_hash_algos);
+    $eccube_cloud_storage_account = azure_getconfig(“EC-CUBE.CLOUD_STORAGE_ACCOUNT”);
+    define('CLOUD_STORAGE_ACCOUNT', $eccube_cloud_storage_account);
+    $eccube_cloud_storage_key = azure_getconfig(“EC-CUBE.CLOUD_STORAGE_KEY”);
+    define('CLOUD_STORAGE_KEY', $eccube_cloud_storage_key);
+*/
+?>

@@ -10,7 +10,7 @@
    *
    * @package Page
    * @author LOCKON CO.,LTD.
-   * @version $Id: SC_Helper_CSV.php 21118 2011-08-03 12:28:10Z kajiwara $
+   * @version $Id$
    */
 class SC_Helper_CSV {
 

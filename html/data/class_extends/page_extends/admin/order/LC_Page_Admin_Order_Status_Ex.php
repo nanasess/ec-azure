@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'pages/admin/order/LC_Page_Admin_Order_Status.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Order_Status_Ex.php 21182 2011-08-10 23:55:15Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Order_Status_Ex extends LC_Page_Admin_Order_Status {
 

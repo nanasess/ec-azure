@@ -32,7 +32,7 @@ require_once CLASS_EX_REALDIR . 'helper_extends/SC_Helper_CSV_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $$Id: LC_Page_Admin_Products_UploadCSVCategory.php 21185 2011-08-11 10:37:10Z shutta $$
+ * @version $$Id$$
  */
 class LC_Page_Admin_Products_UploadCSVCategory extends LC_Page_Admin_Ex {
 

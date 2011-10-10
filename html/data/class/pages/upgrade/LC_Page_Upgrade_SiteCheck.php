@@ -29,7 +29,7 @@ require_once 'LC_Page_Upgrade_Base.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Upgrade_SiteCheck.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Upgrade_SiteCheck extends LC_Page_Upgrade_Base {
 

@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'helper/SC_Helper_DB.php';
  *
  * @package Helper
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Helper_DB_Ex.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class SC_Helper_DB_Ex extends SC_Helper_DB {
 }

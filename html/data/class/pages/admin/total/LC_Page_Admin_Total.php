@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'graph/SC_GraphBar.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Total.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Total extends LC_Page_Admin_Ex {
 
@@ -470,7 +470,7 @@ class LC_Page_Admin_Total extends LC_Page_Admin_Ex {
                 $where.= " AND ";
             }
             $edate = date("Y/m/d",strtotime("1 day" ,strtotime($edate)));
-            $where.= " $col_date < date('" . $edate ."')";
+            $where.= " $col_date < '" . $edate ."'";
         }
 
         // 会員、非会員の判定
@@ -680,12 +680,30 @@ class LC_Page_Admin_Total extends LC_Page_Admin_Ex {
             break;
         }
 
+        // TODO リファクタリング
+        switch($type){
+        case 'month':
+            $format = 'datepart(mm, create_date)';
+            break;
+        case 'year':
+            $format = 'datepart(yyyy, create_date)';
+            break;
+        case 'wday':
+            $format = 'datename(weekday, create_date)';
+            break;
+        case 'hour':
+            $format = 'datepart(hh, create_date)';
+            break;
+        default:
+            $format = 'convert(varchar(10), create_date, 111)';
+            break;
+        }
         $dbFactory = SC_DB_DBFactory_Ex::getInstance();
         // todo postgres
-        $col = $dbFactory->getOrderTotalDaysWhereSql($type);
+        $col = $dbFactory->getOrderTotalDaysWhereSql($format);
 
-        $objQuery->setGroupBy('str_date');
-        $objQuery->setOrder('str_date');
+        $objQuery->setGroupBy($format);
+        $objQuery->setOrder($format);
         // 検索結果の取得
         $arrTotalResults = $objQuery->select($col, 'dtb_order', $where);
 
@@ -735,18 +753,18 @@ class LC_Page_Admin_Total extends LC_Page_Admin_Ex {
                 $format        = 'Y';
                 break;
             case 'wday':
-                $format        = 'D';
+                $format        = 'l';
                 break;
             case 'hour':
-                $format        = 'H';
+                $format        = 'G';
                 break;
             default:
-                $format        = 'Y-m-d';
+                $format        = 'Y/m/d';
                 break;
         }
 
         if ($type == 'hour') {
-            $arrDateList = array('00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
+            $arrDateList = array('0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23');
 
         } else {
             $arrDateList = array();

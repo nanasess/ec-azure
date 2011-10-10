@@ -25,7 +25,7 @@
  * アプリケーションの初期設定クラス.
  *
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Initial.php 21264 2011-09-29 01:54:23Z nanasess $
+ * @version $Id$
  */
 class SC_Initial {
 
@@ -87,6 +87,7 @@ class SC_Initial {
         if(defined('DB_TYPE') && defined('DB_USER') && defined('DB_PASSWORD')
            && defined('DB_SERVER') && defined('DB_PORT') && defined('DB_NAME')) {
             /** サイト用DB */
+            // ここで生成した DSN は使用せず, SC_Query のコンストラクタで設定される
             define ("DEFAULT_DSN",
                     DB_TYPE . "://" . DB_USER . ":" . DB_PASSWORD . "@"
                     . DB_SERVER . ":" .DB_PORT . "/" . DB_NAME);

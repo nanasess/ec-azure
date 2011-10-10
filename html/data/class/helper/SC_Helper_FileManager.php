@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../../module/Tar.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Helper_FileManager.php 20863 2011-04-19 13:52:35Z nanasess $
+ * @version $Id$
  */
 class SC_Helper_FileManager {
 

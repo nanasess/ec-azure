@@ -26,7 +26,7 @@
  *
  * @package Helper
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Helper_Mail.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class SC_Helper_Mail {
 

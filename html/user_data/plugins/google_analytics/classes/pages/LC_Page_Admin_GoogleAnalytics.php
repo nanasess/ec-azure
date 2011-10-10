@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/LC_Page_Ex.php';
  *
  * @package Page
  * @author Kentaro Ohkouchi
- * @version $Id: LC_Page_Admin_GoogleAnalytics.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_GoogleAnalytics extends LC_Page_Ex {
 

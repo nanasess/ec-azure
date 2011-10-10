@@ -33,7 +33,7 @@ require_once CLASS_REALDIR . 'session/SC_SessionFactory.php';
  *
  * @package SC_SessionFactory
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_SessionFactory_UseCookie.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class SC_SessionFactory_UseCookie extends SC_SessionFactory {
 

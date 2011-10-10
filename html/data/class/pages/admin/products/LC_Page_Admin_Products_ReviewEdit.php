@@ -29,7 +29,7 @@ require_once CLASS_REALDIR . 'pages/admin/products/LC_Page_Admin_Products_Review
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Products_ReviewEdit.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class LC_Page_Admin_Products_ReviewEdit extends LC_Page_Admin_Products_Review {
 

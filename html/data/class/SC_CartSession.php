@@ -25,7 +25,7 @@
  * カートセッション管理クラス
  *
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_CartSession.php 21252 2011-09-22 08:48:32Z nanasess $
+ * @version $Id$
  */
 class SC_CartSession {
     /** ユニークIDを指定する. */

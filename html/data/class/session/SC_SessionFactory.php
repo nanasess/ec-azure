@@ -43,7 +43,7 @@ require_once CLASS_REALDIR . 'session/sessionfactory/SC_SessionFactory_UseReques
  *
  * @package SC_Session
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_SessionFactory.php 21010 2011-07-04 04:35:35Z Seasoft $
+ * @version $Id$
  */
 class SC_SessionFactory {
 

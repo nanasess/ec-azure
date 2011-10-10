@@ -29,7 +29,7 @@ require_once CLASS_REALDIR . 'pages/frontparts/bloc/LC_Page_FrontParts_Bloc.php'
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_FrontParts_Bloc_News.php 21126 2011-08-04 11:48:01Z nanasess $
+ * @version $Id$
  */
 class LC_Page_FrontParts_Bloc_News extends LC_Page_FrontParts_Bloc {
 
@@ -130,7 +130,7 @@ class LC_Page_FrontParts_Bloc_News extends LC_Page_FrontParts_Bloc {
         $sql = '';
         $sql .= " SELECT ";
         $sql .= "   *, ";
-        $sql .= "   cast(news_date as date) as news_date_disp ";
+        $sql .= "    convert(varchar(4), YEAR(news_date)) + '-' + convert(varchar(2), MONTH(news_date)) + '-' + convert(varchar(10), DAY(news_date)) as news_date_disp ";
         $sql .= " FROM ";
         $sql .= "   dtb_news ";
         $sql .= " WHERE ";

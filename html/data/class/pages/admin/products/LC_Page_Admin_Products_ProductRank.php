@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Products_ProductRank.php 20911 2011-05-04 19:29:41Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Products_ProductRank extends LC_Page_Admin_Ex {
 
@@ -118,10 +118,10 @@ class LC_Page_Admin_Products_ProductRank extends LC_Page_Admin_Ex {
     function lfGetProduct($category_id) {
         // FIXME SC_Product クラスを使用した実装
         $objQuery =& SC_Query_Ex::getSingletonInstance();
-        $col = "product_id, name, main_list_image, product_code_min, product_code_max, status";
+        $col = "alldtl.product_id, name, main_list_image, product_code_min, product_code_max, status";
         $objProduct = new SC_Product();
         $table = $objProduct->alldtlSQL();
-        $table.= " LEFT JOIN dtb_product_categories AS T5 USING(product_id)";
+        $table.= " LEFT JOIN dtb_product_categories AS T5 ON T5.product_id = alldtl.product_id";
         $where = "del_flg = 0 AND category_id = ?";
 
         // 行数の取得
@@ -139,7 +139,7 @@ class LC_Page_Admin_Products_ProductRank extends LC_Page_Admin_Ex {
         // 取得範囲の指定(開始行番号、行数のセット)
         $objQuery->setLimitOffset(SEARCH_PMAX, $startno);
 
-        $objQuery->setOrder("rank DESC, product_id DESC");
+        $objQuery->setOrder("rank DESC, alldtl.product_id DESC");
 
         $arrRet = $objQuery->select($col, $table, $where, array($category_id));
         return $arrRet;

@@ -25,7 +25,7 @@
  * HttpResponse を扱うクラス.
  *
  * @author Ryuichi Tokugami
- * @version $Id: SC_Response.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class SC_Response{
 

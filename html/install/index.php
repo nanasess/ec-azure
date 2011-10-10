@@ -38,16 +38,18 @@ if(!defined("ADMIN_DIR")){
 }
 
 define("INSTALL_LOG", "./temp/install.log");
-ini_set("max_execution_time", 300);
+ini_set("max_execution_time", 0);
 
 $objPage = new StdClass;
 $objPage->arrDB_TYPE = array(
-    'pgsql' => 'PostgreSQL',
-    'mysql' => 'MySQL'
+    //'pgsql' => 'PostgreSQL',
+    //'mysql' => 'MySQL',
+    'sqlsrv' => 'SQL Azure'
 );
 $objPage->arrDB_PORT = array(
-    'pgsql' => '',
-    'mysql' => ''
+    //'pgsql' => '',
+    //'mysql' => '',
+    'sqlsrv' => '1433',
 );
 
 $objDb = new SC_Helper_DB_Ex();
@@ -66,6 +68,7 @@ $objView = new SC_InstallView_Ex($ownDir . 'templates', $ownDir . 'temp');
 $objWebParam = new SC_FormParam();
 $objDBParam = new SC_FormParam();
 // パラメーター情報の初期化
+
 $objWebParam = lfInitWebParam($objWebParam);
 $objDBParam = lfInitDBParam($objDBParam);
 
@@ -114,12 +117,12 @@ case 'step2':
     //入力値のエラーチェック
     $objPage->arrErr = lfCheckDBError($objDBParam);
     if (count($objPage->arrErr) == 0) {
-        if ($err = renameAdminDir($objWebParam->getValue('admin_dir')) !== true) {
-            $objPage->arrErr["all"] .= $err;
-            $objPage = lfDispStep2($objPage);
-        } else {
+//        if ($err = renameAdminDir($objWebParam->getValue('admin_dir')) !== true) {
+//            $objPage->arrErr["all"] .= $err;
+//            $objPage = lfDispStep2($objPage);
+//        } else {
             $objPage = lfDispStep3($objPage);
-        }
+//        }
     } else {
         $objPage = lfDispStep2($objPage);
     }
@@ -129,7 +132,15 @@ case 'step3':
     // 入力データを渡す。
     $arrRet =  $objDBParam->getHashArray();
     define("DB_TYPE", $arrRet['db_type']);
-    $dsn = $arrRet['db_type']."://".$arrRet['db_user'].":".$arrRet['db_password']."@".$arrRet['db_server'].":".$arrRet['db_port']."/".$arrRet['db_name'];
+
+    $dsn = array('phptype'  => $arrRet['db_type'],
+                 'username' => $arrRet['db_user'],
+                 'password' => $arrRet['db_password'],
+                 'protocol' => 'tcp',
+                 'hostspec' => $arrRet['db_server'],
+                 'port'     => $arrRet['db_port'],
+                 'database' => $arrRet['db_name']
+                 );
 
     if(count($objPage->arrErr) == 0) {
         // スキップする場合には次画面へ遷移
@@ -141,6 +152,7 @@ case 'step3':
     }
 
     // テーブルの作成
+
     $objPage->arrErr = lfExecuteSQL("./sql/create_table_".$arrRet['db_type'].".sql", $dsn);
     if(count($objPage->arrErr) == 0) {
         $objPage->tpl_message.="○：テーブルの作成に成功しました。<br />";
@@ -150,22 +162,26 @@ case 'step3':
 
     // 初期データの作成
     if(count($objPage->arrErr) == 0) {
+
         $objPage->arrErr = lfExecuteSQL("./sql/insert_data.sql", $dsn);
         if(count($objPage->arrErr) == 0) {
             $objPage->tpl_message.="○：初期データの作成に成功しました。<br />";
         } else {
             $objPage->tpl_message.="×：初期データの作成に失敗しました。<br />";
         }
+
     }
 
     // シーケンスの作成
     if (count($objPage->arrErr) == 0) {
+
         $objPage->arrErr = lfCreateSequence(getSequences(), $dsn);
         if(count($objPage->arrErr) == 0) {
             $objPage->tpl_message.="○：シーケンスの作成に成功しました。<br />";
         } else {
             $objPage->tpl_message.="×：シーケンスの作成に失敗しました。<br />";
         }
+
     }
 
     if(count($objPage->arrErr) == 0) {
@@ -186,7 +202,15 @@ case 'drop':
     if (!defined("DB_TYPE")) {
         define("DB_TYPE", $arrRet['db_type']);
     }
-    $dsn = $arrRet['db_type']."://".$arrRet['db_user'].":".$arrRet['db_password']."@".$arrRet['db_server'].":".$arrRet['db_port']."/".$arrRet['db_name'];
+
+    $dsn = array('phptype'  => $arrRet['db_type'],
+                 'username' => $arrRet['db_user'],
+                 'password' => $arrRet['db_password'],
+                 'protocol' => 'tcp',
+                 'hostspec' => $arrRet['db_server'],
+                 'port'     => $arrRet['db_port'],
+                 'database' => $arrRet['db_name']
+                 );
 
     // テーブルの削除
     if(count($objPage->arrErr) == 0) {
@@ -389,10 +413,10 @@ function lfDispStep0($objPage) {
         if(!file_exists($path)) {
             mkdir($path);
         }
-        $path = HTML_REALDIR . "upload/save_image";
-        if(!file_exists($path)) {
-            mkdir($path);
-        }
+//        $path = HTML_REALDIR . "upload/save_image";
+//        if(!file_exists($path)) {
+//            mkdir($path);
+//        }
         $path = HTML_REALDIR . "upload/temp_image";
         if(!file_exists($path)) {
             mkdir($path);
@@ -405,14 +429,14 @@ function lfDispStep0($objPage) {
         if(!file_exists($path)) {
             mkdir($path);
         }
-        $path = DATA_REALDIR . "downloads/module";
-        if(!file_exists($path)) {
-            mkdir($path);
-        }
-        $path = DATA_REALDIR . "downloads/update";
-        if(!file_exists($path)) {
-            mkdir($path);
-        }
+//        $path = DATA_REALDIR . "downloads/module";
+//        if(!file_exists($path)) {
+//            mkdir($path);
+//        }
+//        $path = DATA_REALDIR . "downloads/update";
+//        if(!file_exists($path)) {
+//            mkdir($path);
+//        }
         $path = DATA_REALDIR . "upload/csv";
         if(!file_exists($path)) {
             mkdir($path);
@@ -430,6 +454,18 @@ function lfDispStep0($objPage) {
 function lfDispStep0_1($objPage) {
     global $objWebParam;
     global $objDBParam;
+    $objBlob = new SC_Helper_Blob_Ex();
+    //Azureで永続化する必要のあるコンテンツのディレクトリをコンテナとして作成
+    $imageDir = "saveimage";
+    $objBlob->createContainer($imageDir);
+    $templateDir = "template" . TEMPLATE_NAME;
+    $objBlob->createContainer($templateDir);
+    $mobileTemplateDir = "template" . MOBILE_TEMPLATE_NAME;
+    $objBlob->createContainer($mobileTemplateDir);
+    $smartphoneTemplateDir = "template" . SMARTPHONE_TEMPLATE_NAME;
+    $objBlob->createContainer($smartphoneTemplateDir);
+    $downloadFileDir = "downsave";
+    $objBlob->createContainer($downloadFileDir, false);
 
     // hiddenに入力値を保持
     $objPage->arrHidden = $objWebParam->getHashArray();
@@ -440,7 +476,12 @@ function lfDispStep0_1($objPage) {
     $objPage->tpl_mainpage = 'step0_1.tpl';
     $objPage->tpl_mode = 'step0_1';
     // ファイルコピー
-    $objPage->copy_mess = SC_Utils_Ex::sfCopyDir("./save_image/", HTML_REALDIR . "upload/save_image/", $objPage->copy_mess);
+    //$objPage->copy_mess = SC_Utils_Ex::sfCopyDir("./save_image/", HTML_REALDIR . "upload/save_image/", $objPage->copy_mess);
+    $objPage->copy_mess .= $objBlob->putBlobDir($imageDir, "./save_image/");
+    $objPage->copy_mess .= $objBlob->putBlobDir($templateDir, TEMPLATE_REALDIR.BLOC_DIR, BLOC_DIR);
+    $objPage->copy_mess .= $objBlob->putBlobDir($mobileTemplateDir, TEMPLATE_REALDIR.BLOC_DIR, BLOC_DIR);
+    $objPage->copy_mess .= $objBlob->putBlobDir($smartphoneTemplateDir, TEMPLATE_REALDIR.BLOC_DIR, BLOC_DIR);
+    $objPage->copy_mess .= $objBlob->putBlobDir($downloadFileDir, DOWN_SAVE_REALDIR);
     return $objPage;
 }
 
@@ -496,7 +537,7 @@ function lfDispStep4($objPage) {
     global $objDb;
 
     // 設定ファイルの生成
-    lfMakeConfigFile();
+    //lfMakeConfigFile();
 
     // hiddenに入力値を保持
     $objPage->arrHidden = $objWebParam->getHashArray();
@@ -512,7 +553,15 @@ function lfDispStep4($objPage) {
     if (!defined("DB_TYPE")) {
         define("DB_TYPE", $arrDbParam['db_type']);
     }
-    $dsn = $arrDbParam['db_type']."://".$arrDbParam['db_user'].":".$arrDbParam['db_password']."@".$arrDbParam['db_server'].":".$arrDbParam['db_port']."/".$arrDbParam['db_name'];
+    $dsn = array('phptype'  => $arrDbParam['db_type'],
+                 'username' => $arrDbParam['db_user'],
+                 'password' => $arrDbParam['db_password'],
+                 'protocol' => 'tcp',
+                 'hostspec' => $arrDbParam['db_server'],
+                 'port'     => $arrDbParam['db_port'],
+                 'database' => $arrDbParam['db_name']
+                 );
+
     if (!defined('DEFAULT_DSN')) {
         define('DEFAULT_DSN', $dsn);
     }
@@ -541,7 +590,16 @@ function lfDispComplete($objPage) {
     // ショップマスター情報の書き込み
     $arrRet =  $objDBParam->getHashArray();
 
-    $dsn = $arrRet['db_type']."://".$arrRet['db_user'].":".$arrRet['db_password']."@".$arrRet['db_server'].":".$arrRet['db_port']."/".$arrRet['db_name'];
+    $dsn = array('phptype'  => $arrRet['db_type'],
+                 'username' => $arrRet['db_user'],
+                 'password' => $arrRet['db_password'],
+                 'protocol' => 'tcp',
+                 'hostspec' => $arrRet['db_server'],
+                 'port'     => $arrRet['db_port'],
+                 'database' => $arrRet['db_name']
+                 );
+
+    $sqlval['id'] = 1;
     $sqlval['shop_name'] = $objWebParam->getValue('shop_name');
     $sqlval['email01'] = $objWebParam->getValue('admin_mail');
     $sqlval['email02'] = $objWebParam->getValue('admin_mail');
@@ -578,7 +636,8 @@ function lfDispComplete($objPage) {
     $member_id = $objQuery->get('member_id', 'dtb_member', 'login_id = ? AND del_flg = 0', array($login_id));
 
     if (strlen($member_id) == 0) {
-        $member_id = $objQuery->nextVal('dtb_member_member_id');
+        //$member_id = $objQuery->nextVal('dtb_member_member_id');
+        $member_id = 2;
         $arrVal['member_id'] = $member_id;
         $arrVal['name'] = '管理者';
         $arrVal['creator_id'] = 0;
@@ -598,7 +657,7 @@ function lfDispComplete($objPage) {
     if (!ereg("/$", $secure_url)) {
         $secure_url = $secure_url . "/";
     }
-    $objPage->tpl_sslurl = $secure_url;
+    $objPage->tpl_sslurl = HTTPS_URL;
     //EC-CUBEオフィシャルサイトからのお知らせURL
     $objPage->install_info_url = INSTALL_INFO_URL;
     return $objPage;
@@ -622,6 +681,7 @@ function lfInitWebParam($objWebParam) {
         $secure_url = "http://" . $_SERVER['HTTP_HOST'] . $dir;
     }
 
+    /*
     // 店名、管理者メールアドレスを取得する。(再インストール時)
     if(defined('DEFAULT_DSN')) {
         $objQuery = new SC_Query();
@@ -633,7 +693,6 @@ function lfInitWebParam($objWebParam) {
             $admin_mail = $arrRet[0]['email01'];
         }
     }
-
     // 管理機能のディレクトリ名を取得（再インストール時）
     $oldAdminDir = SC_Utils_Ex::sfTrimURL(ADMIN_DIR);
 
@@ -653,18 +712,20 @@ function lfInitWebParam($objWebParam) {
     } else {
         $admin_allow_hosts = '';
     }
+    */
 
     $objWebParam->addParam("店名", "shop_name", MTEXT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"), $shop_name);
     $objWebParam->addParam("管理者：メールアドレス", "admin_mail", null, "", array("EXIST_CHECK","EMAIL_CHECK","EMAIL_CHAR_CHECK"), $admin_mail);
     $objWebParam->addParam("管理者：ログインID", "login_id", ID_MAX_LEN, "", array("EXIST_CHECK","SPTAB_CHECK", "ALNUM_CHECK"));
     $objWebParam->addParam("管理者：パスワード", "login_pass", ID_MAX_LEN, "", array("EXIST_CHECK","SPTAB_CHECK", "ALNUM_CHECK"));
+    /*
     $objWebParam->addParam("管理機能：ディレクトリ", "admin_dir", ID_MAX_LEN, "a", array("EXIST_CHECK","SPTAB_CHECK", "ALNUM_CHECK"), $oldAdminDir);
     $objWebParam->addParam("管理機能：SSL制限", "admin_force_ssl", 1, "n", array("SPTAB_CHECK", "NUM_CHECK","MAX_LENGTH_CHECK"), $admin_force_ssl);
     $objWebParam->addParam("管理機能：IP制限", "admin_allow_hosts", LTEXT_LEN, "an", array("IP_CHECK","MAX_LENGTH_CHECK"), $admin_allow_hosts);
     $objWebParam->addParam("URL(通常)", "normal_url", MTEXT_LEN, "", array("EXIST_CHECK","URL_CHECK","MAX_LENGTH_CHECK"), $normal_url);
     $objWebParam->addParam("URL(セキュア)", "secure_url", MTEXT_LEN, "", array("EXIST_CHECK","URL_CHECK","MAX_LENGTH_CHECK"), $secure_url);
     $objWebParam->addParam("ドメイン", "domain", MTEXT_LEN, "", array("MAX_LENGTH_CHECK"));
-
+*/
     return $objWebParam;
 }
 
@@ -701,12 +762,18 @@ function lfInitDBParam($objDBParam) {
         $db_user = "eccube_db_user";
     }
 
-    $objDBParam->addParam("DBの種類", "db_type", INT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"), $db_type);
-    $objDBParam->addParam("DBサーバー", "db_server", MTEXT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"), $db_server);
+    if(defined('DB_USER')) {
+        $db_password = DB_PASSWORD;
+    } else {
+        $db_password = "password";
+    }
+
+    $objDBParam->addParam("DBの種類", "db_type", INT_LEN, "", array("MAX_LENGTH_CHECK"), $db_type);
+    $objDBParam->addParam("DBサーバー", "db_server", MTEXT_LEN, "", array("MAX_LENGTH_CHECK"), $db_server);
     $objDBParam->addParam("DBポート", "db_port", INT_LEN, "", array("MAX_LENGTH_CHECK"), $db_port);
-    $objDBParam->addParam("DB名", "db_name", MTEXT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"), $db_name);
-    $objDBParam->addParam("DBユーザ", "db_user", MTEXT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"), $db_user);
-    $objDBParam->addParam("DBパスワード", "db_password", MTEXT_LEN, "", array("EXIST_CHECK","MAX_LENGTH_CHECK"));
+    $objDBParam->addParam("DB名", "db_name", MTEXT_LEN, "", array("MAX_LENGTH_CHECK"), $db_name);
+    $objDBParam->addParam("DBユーザ", "db_user", MTEXT_LEN, "", array("MAX_LENGTH_CHECK"), $db_user);
+    $objDBParam->addParam("DBパスワード", "db_password", MTEXT_LEN, "", array("MAX_LENGTH_CHECK"), $db_password);
 
     return $objDBParam;
 }
@@ -733,6 +800,7 @@ function lfCheckWebError($objFormParam) {
     // パスワードのチェック
     $objErr->doFunc( array("管理者：パスワード",'login_pass',ID_MIN_LEN , ID_MAX_LEN ) ,array("SPTAB_CHECK" ,"NUM_RANGE_CHECK" ));
 
+    /*
     // 管理機能ディレクトリのチェック
     $objErr->doFunc( array("管理機能：ディレクトリ", 'admin_dir', ID_MIN_LEN, ID_MAX_LEN), array("SPTAB_CHECK" ,"NUM_RANGE_CHECK"));
 
@@ -741,7 +809,7 @@ function lfCheckWebError($objFormParam) {
     if ($oldAdminDir !== $newAdminDir AND file_exists(HTML_REALDIR . $newAdminDir) and $newAdminDir != "admin") {
         $objErr->arrErr["admin_dir"] = "※ 指定した管理機能ディレクトリは既に存在しています。別の名前を指定してください。";
     }
-
+    */
     return $objErr->arrErr;
 }
 
@@ -760,10 +828,19 @@ function lfCheckDBError($objFormParam) {
             define("DB_TYPE", $arrRet['db_type']);
         }
         // 接続確認
-        $dsn = $arrRet['db_type']."://".$arrRet['db_user'].":".$arrRet['db_password']."@".$arrRet['db_server'].":".$arrRet['db_port']."/".$arrRet['db_name'];
+        $dsn = array('phptype'  => $arrRet['db_type'],
+                     'username' => $arrRet['db_user'],
+                     'password' => $arrRet['db_password'],
+                     'protocol' => 'tcp',
+                     'hostspec' => $arrRet['db_server'],
+                     'port'     => $arrRet['db_port'],
+                     'database' => $arrRet['db_name']
+                     );
+
         // Debugモード指定
         $options['debug'] = PEAR_DB_DEBUG;
         $objDB = MDB2::connect($dsn, $options);
+        
         // 接続成功
         if(!PEAR::isError($objDB)) {
             $dbFactory = SC_DB_DBFactory_Ex::getInstance($arrRet['db_type']);
@@ -874,15 +951,20 @@ function lfCreateSequence($arrSequences, $dsn) {
 
     // Debugモード指定
     $options['debug'] = PEAR_DB_DEBUG;
-    $objDB = MDB2::connect($dsn, $options);
-    $objManager =& $objDB->loadModule('Manager');
 
     // 接続エラー
     if (!PEAR::isError($objDB)) {
 
+        $objDB = MDB2::connect($dsn, $options);
+        $objManager =& $objDB->loadModule('Manager');
         $exists = $objManager->listSequences();
+        $objDB->disconnect();
+
         foreach ($arrSequences as $seq) {
             SC_Utils::sfFlush(true);
+            $objDB = MDB2::connect($dsn, $options);
+            $objManager =& $objDB->loadModule('Manager');
+
             $res = $objDB->query("SELECT max(" . $seq[1] . ") FROM ". $seq[0]);
             if (PEAR::isError($res)) {
                 $arrErr['all'] = ">> " . $res->userinfo . "<br />";
@@ -899,6 +981,7 @@ function lfCreateSequence($arrSequences, $dsn) {
             } else {
                 GC_Utils_Ex::gfPrintLog("OK:". $seq_name, INSTALL_LOG);
             }
+            $objDB->disconnect();
         }
     } else {
         $arrErr['all'] = ">> " . $objDB->message;
@@ -987,11 +1070,12 @@ function lfMakeConfigFile() {
     "    define ('AUTH_MAGIC', '" . $auth_magic . "');\n".
     "    define ('PASSWORD_HASH_ALGOS', '" . $algos . "');\n".
     "?>";
-
+    /*
     if ($fp = fopen(CONFIG_REALFILE, 'w')) {
         fwrite($fp, $config_data);
         fclose($fp);
     }
+     */
 }
 
 /**

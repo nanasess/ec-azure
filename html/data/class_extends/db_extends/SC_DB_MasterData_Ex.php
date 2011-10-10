@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'db/SC_DB_MasterData.php';
  *
  * @package DB
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_DB_MasterData_Ex.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class SC_DB_MasterData_Ex extends SC_DB_MasterData {
 }

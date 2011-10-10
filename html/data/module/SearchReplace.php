@@ -32,7 +32,7 @@
 // | Author: Richard Heyes <richard@phpguru.org>                           |
 // +-----------------------------------------------------------------------+
 //
-// $Id: SearchReplace.php 20116 2011-02-09 01:36:01Z nanasess $
+// $Id$
 //
 // Search and Replace Utility
 //

@@ -26,7 +26,7 @@
  *
  * @author LOCKON CO.,LTD.
  * @author Kentaro Ohkouchi
- * @version $Id: SC_Product.php 21263 2011-09-28 07:15:05Z nanasess $
+ * @version $Id$
  */
 class SC_Product {
 
@@ -93,7 +93,7 @@ __EOS__;
                             $o_table as T2
                         WHERE T2.product_id = alldtl.product_id
                         ORDER BY T2.$o_col $o_order
-                        LIMIT 1
+
                     ) $o_order, product_id
 __EOS__;
             $objQuery->setOrder($order);
@@ -163,7 +163,7 @@ __EOS__;
             ,del_flg
             ,update_date
 __EOS__;
-        $where = 'dtb_products_class.del_flg = 0';
+        $where = 'TT1.del_flg = 0';
         $res = $objQuery->select($col, $this->alldtlSQL($where));
         return $res;
     }
@@ -201,7 +201,8 @@ __EOS__;
      */
     function getDetail($productId) {
         $objQuery =& SC_Query_Ex::getSingletonInstance();
-        $result = $objQuery->select("*", $this->alldtlSQL("product_id = ? AND del_flg = 0"),
+        $select = $this->alldtlSQL("product_id = ? AND del_flg = 0");
+        $result = $objQuery->select("*", $select,
                                     "product_id = ?",
                                     array($productId, $productId));
         return $result[0];
@@ -676,8 +677,8 @@ __EOS__;
          */
         $sql = <<< __EOS__
             (
-                SELECT 0
-                    ,dtb_products.product_id
+                SELECT
+                    dtb_products.product_id
                     ,dtb_products.name
                     ,dtb_products.maker_id
                     ,dtb_products.status
@@ -739,8 +740,8 @@ __EOS__;
                 FROM dtb_products
                     JOIN (
                        SELECT product_id,
-                              MIN(product_code) AS product_code_min,
-                              MAX(product_code) AS product_code_max,
+                              (SELECT TOP 1 product_code FROM dtb_products_class TTT1 WHERE TT1.product_id = TTT1.product_id ORDER BY product_code) AS product_code_min,
+                              (SELECT TOP 1 product_code FROM dtb_products_class TTT2 WHERE TT1.product_id = TTT2.product_id ORDER BY product_code DESC) AS product_code_max,
                               MIN(price01) AS price01_min,
                               MAX(price01) AS price01_max,
                               MIN(price02) AS price02_min,
@@ -752,7 +753,7 @@ __EOS__;
                               MAX(point_rate) AS point_rate,
                               MAX(deliv_fee) AS deliv_fee,
                               COUNT(*) as class_count
-                        FROM dtb_products_class
+                        FROM dtb_products_class TT1
                         $where_clause
                         GROUP BY product_id
                     ) AS T4

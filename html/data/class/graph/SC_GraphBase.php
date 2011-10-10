@@ -128,7 +128,7 @@ define("LEGEND_RIGHT", 10);
  *
  * @package Graph
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_GraphBase.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class SC_GraphBase {
 

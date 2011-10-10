@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/products/LC_Page_Admin_Produ
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Products_Product.php 21261 2011-09-27 06:40:23Z eccuore $
+ * @version $Id$
  */
 class LC_Page_Admin_Products_Product extends LC_Page_Admin_Products_Ex {
 
@@ -165,7 +165,7 @@ class LC_Page_Admin_Products_Product extends LC_Page_Admin_Products_Ex {
                 $objQuery =& SC_Query_Ex::getSingletonInstance();
                 $objDb = new SC_Helper_DB_Ex();
                 $objDb->sfCountCategory($objQuery);
-                $objDb->sfCountMaker($objQuery);
+                //$objDb->sfCountMaker($objQuery);
 
                 // ダウンロード商品の複製時に、ダウンロード商品用ファイルを
                 // 変更すると、複製元のファイルが削除されるのを回避。

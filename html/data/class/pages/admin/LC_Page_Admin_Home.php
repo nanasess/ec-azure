@@ -31,7 +31,7 @@ require_once DATA_REALDIR . 'module/HTTP/Request.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Home.php 21237 2011-09-09 06:29:59Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Home extends LC_Page_Admin_Ex {
 
@@ -250,14 +250,13 @@ class LC_Page_Admin_Home extends LC_Page_Admin_Ex {
                     ord.order_name02 AS name02,
                     ord.total,
                     ord.create_date,
-                    (SELECT
+                    (SELECT TOP 1
                         det.product_name
                     FROM
                         dtb_order_detail AS det
                     WHERE
                         ord.order_id = det.order_id
                     ORDER BY det.order_detail_id
-                    LIMIT 1
                     ) AS product_name,
                     (SELECT
                         pay.payment_method
@@ -267,7 +266,7 @@ class LC_Page_Admin_Home extends LC_Page_Admin_Ex {
                         ord.payment_id = pay.payment_id
                     ) AS payment_method
                 FROM (
-                    SELECT
+                    SELECT TOP 10
                         order_id,
                         customer_id,
                         order_name01,
@@ -280,7 +279,7 @@ class LC_Page_Admin_Home extends LC_Page_Admin_Ex {
                     WHERE
                         del_flg = 0 AND status <> " . ORDER_CANCEL . "
                     ORDER BY
-                        create_date DESC LIMIT 10 OFFSET 0
+                        create_date DESC
                 ) AS ord";
         $arrNewOrder = $objQuery->getAll($sql);
         foreach ($arrNewOrder as $key => $val){

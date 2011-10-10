@@ -34,7 +34,7 @@ require_once CLASS_EX_REALDIR . 'helper_extends/SC_Helper_Mobile_Ex.php';
  *
  * @package SC_SessionFactory
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_SessionFactory_UseRequest.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class SC_SessionFactory_UseRequest extends SC_SessionFactory {
 

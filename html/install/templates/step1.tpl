@@ -73,7 +73,7 @@
                 </td>
             </tr>
         </table>
-
+<!--{* Azure対応コメントアウト
         <h2>管理機能の設定</h2>
         <table>
             <colgroup width="30%">
@@ -141,6 +141,7 @@
                 </td>
             </tr>
         </table>
+        *}-->
     </div>
 </div>
 <div class="btn-area-top"></div>

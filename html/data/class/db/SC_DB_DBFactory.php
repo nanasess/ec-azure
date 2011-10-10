@@ -24,6 +24,7 @@
 // {{{ requires
 require_once CLASS_REALDIR . 'db/dbfactory/SC_DB_DBFactory_MYSQL.php';
 require_once CLASS_REALDIR . 'db/dbfactory/SC_DB_DBFactory_PGSQL.php';
+require_once CLASS_REALDIR . 'db/dbfactory/SC_DB_DBFactory_SQLSRV.php';
 
 /**
  * DBに依存した処理を抽象化するファクトリークラス.
@@ -48,6 +49,10 @@ class SC_DB_DBFactory {
 
         case 'pgsql':
             return new SC_DB_DBFactory_PGSQL();
+            break;
+
+        case 'sqlsrv':
+            return new SC_DB_DBFactory_SQLSRV();
             break;
 
         default:

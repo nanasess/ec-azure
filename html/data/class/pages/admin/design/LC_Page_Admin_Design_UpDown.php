@@ -31,7 +31,7 @@ require_once CLASS_EX_REALDIR . 'helper_extends/SC_Helper_FileManager_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Design_UpDown.php 21185 2011-08-11 10:37:10Z shutta $
+ * @version $Id$
  */
 class LC_Page_Admin_Design_UpDown extends LC_Page_Admin_Ex {
 

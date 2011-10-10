@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Products.php 21229 2011-08-31 11:56:43Z Yammy $
+ * @version $Id$
  */
 class LC_Page_Admin_Products extends LC_Page_Admin_Ex {
 
@@ -289,7 +289,7 @@ class LC_Page_Admin_Products extends LC_Page_Admin_Ex {
             break;
         // 商品コード
         case 'search_product_code':
-            $where .= " AND product_id IN (SELECT product_id FROM dtb_products_class WHERE product_code ILIKE ? GROUP BY product_id)";
+            $where .= " AND product_id IN (SELECT product_id FROM dtb_products_class WHERE product_code LIKE ? GROUP BY product_id)";
             $arrValues[] = sprintf('%%%s%%', $objFormParam->getValue($key));
             break;
         // 商品名

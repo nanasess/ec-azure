@@ -122,15 +122,15 @@ class SC_CustomerList extends SC_SelectSql_Ex {
                 //検索条件を含まない
                 if($this->arrSql['not_emailinc'] == '1') {
                     if($sql_where == "") {
-                        $sql_where .= "dtb_customer.email NOT ILIKE ? ";
+                        $sql_where .= "dtb_customer.email NOT LIKE ? ";
                     } else {
-                        $sql_where .= "AND dtb_customer.email NOT ILIKE ? ";
+                        $sql_where .= "AND dtb_customer.email NOT LIKE ? ";
                     }
                 } else {
                     if($sql_where == "") {
-                        $sql_where .= "dtb_customer.email ILIKE ? ";
+                        $sql_where .= "dtb_customer.email LIKE ? ";
                     } else {
-                        $sql_where .= "OR dtb_customer.email ILIKE ? ";
+                        $sql_where .= "OR dtb_customer.email LIKE ? ";
                     }
                 }
                 $searchEmail = $this->addSearchStr($val);
@@ -151,15 +151,15 @@ class SC_CustomerList extends SC_SelectSql_Ex {
                 //検索条件を含まない
                 if($this->arrSql['not_email_mobileinc'] == '1') {
                     if($sql_where == "") {
-                        $sql_where .= "dtb_customer.email_mobile NOT ILIKE ? ";
+                        $sql_where .= "dtb_customer.email_mobile NOT LIKE ? ";
                     } else {
-                        $sql_where .= "AND dtb_customer.email_mobile NOT ILIKE ? ";
+                        $sql_where .= "AND dtb_customer.email_mobile NOT LIKE ? ";
                     }
                 } else {
                     if($sql_where == "") {
-                        $sql_where .= "dtb_customer.email_mobile ILIKE ? ";
+                        $sql_where .= "dtb_customer.email_mobile LIKE ? ";
                     } else {
-                        $sql_where .= "OR dtb_customer.email_mobile ILIKE ? ";
+                        $sql_where .= "OR dtb_customer.email_mobile LIKE ? ";
                     }
                 }
                 $searchemail_mobile = $this->addSearchStr($val);

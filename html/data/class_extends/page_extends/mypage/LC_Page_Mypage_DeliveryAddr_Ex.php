@@ -31,7 +31,7 @@ require_once CLASS_REALDIR . 'pages/mypage/LC_Page_Mypage_DeliveryAddr.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Mypage_DeliveryAddr_Ex.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class LC_Page_Mypage_DeliveryAddr_Ex extends LC_Page_Mypage_DeliveryAddr {
 

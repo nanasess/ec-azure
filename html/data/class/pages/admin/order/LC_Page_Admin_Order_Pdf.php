@@ -30,7 +30,7 @@ require_once CLASS_REALDIR . 'SC_Fpdf.php';
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: LC_Page_Admin_Order_Pdf.php 20970 2011-06-10 10:27:24Z Seasoft $
+ * @version $Id$
  */
 class LC_Page_Admin_Order_Pdf extends LC_Page_Admin_Ex {
 

@@ -26,7 +26,7 @@
  *
  * @package Page
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Batch.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  */
 class SC_Batch {
 

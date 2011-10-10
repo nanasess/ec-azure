@@ -29,7 +29,7 @@ require_once realpath(dirname(__FILE__)) . '/../module/MDB2.php';
  * TODO エラーハンドリング, ロギング方法を見直す
  *
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Query.php 21273 2011-10-05 09:55:44Z shutta $
+ * @version $Id$
  */
 class SC_Query {
 
@@ -51,7 +51,14 @@ class SC_Query {
     function SC_Query($dsn = "", $force_run = false, $new = false) {
 
         if ($dsn == "") {
-            $dsn = DEFAULT_DSN;
+            $dsn = array('phptype'  => DB_TYPE,
+                         'username' => DB_USER,
+                         'password' => DB_PASSWORD,
+                         'protocol' => 'tcp',
+                         'hostspec' => DB_SERVER,
+                         'port'     => DB_PORT,
+                         'database' => DB_NAME
+                         );
         }
 
         // Debugモード指定
@@ -76,7 +83,7 @@ class SC_Query {
             $this->conn = MDB2::singleton($dsn, $options);
         }
         if (!PEAR::isError($this->conn)) {
-            $this->conn->setCharset("utf8");
+            // $this->conn->setCharset("utf8"); XXX SQL Azure では使用できないらしい
             $this->conn->setFetchMode(MDB2_FETCHMODE_ASSOC);
         }
         $this->dbFactory = SC_DB_DBFactory_Ex::getInstance();
@@ -326,8 +333,7 @@ class SC_Query {
     function setLimitOffset($limit, $offset = 0) {
         if (is_numeric($limit) && is_numeric($offset)){
 
-            $option = " LIMIT " . $limit;
-            $option.= " OFFSET " . $offset;
+            $this->conn->setLimit($limit, $offset);
             $this->option .= $option;
         }
         return $this;
@@ -426,7 +432,7 @@ class SC_Query {
      */
     function setLimit($limit){
         if ( is_numeric($limit)){
-            $this->option = " LIMIT " .$limit;
+            $this->conn->setLimit($limit);
         }
         return $this;
     }
@@ -692,7 +698,17 @@ class SC_Query {
      * @param integer 次のシーケンス値
      */
     function nextVal($seq_name) {
-        return $this->conn->nextID($seq_name);
+        $dsn = array('phptype'  => DB_TYPE,
+                     'username' => DB_USER,
+                     'password' => DB_PASSWORD,
+                     'protocol' => 'tcp',
+                     'hostspec' => DB_SERVER,
+                     'port'     => DB_PORT,
+                     'database' => DB_NAME
+                     );
+        // SQL Azure では必ず新しいセッションを使用する
+        $_conn = MDB2::connect($dsn, $options);
+        return $_conn->nextID($seq_name, false);
     }
 
     /**

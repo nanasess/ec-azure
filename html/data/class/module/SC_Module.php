@@ -38,7 +38,7 @@ require_once CLASS_EX_REALDIR . 'db_extends/SC_DB_MasterData_Ex.php';
  *
  * @package module
  * @author LOCKON CO.,LTD.
- * @version $Id: SC_Module.php 20764 2011-03-22 06:26:40Z nanasess $
+ * @version $Id$
  *
  * TODO モジュールコード周りの改修 命名がばらばらなのを吸収できるように
  * TODO テーブル拡張, マスターデータ登録, 初期ファイルコピー処理の追加
