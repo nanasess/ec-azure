@@ -1,0 +1,17 @@
+GPATH
+GRTAGS
+GTAGS
+html/data/cache/*
+html/data/logs/*
+html/install/temp/*
+html/data/Smarty/templates_c/*
+html/data/Smarty/templates_c/admin/*
+html/upload/save_image/*
+html/data/download/save/*
+html/data/download/temp/*
+html/data/downloads/*.CSV
+html/data/downloads/backup/*
+html/data/downloads/tmp/*
+html/upload/mobile_image/*
+html/upload/temp_image/*
+.bzr
