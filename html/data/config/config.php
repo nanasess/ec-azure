@@ -16,7 +16,7 @@
     define ('AUTH_MAGIC', 'tainugiadeauaehopedepriochouraitaijeacho');
     define ('PASSWORD_HASH_ALGOS', 'sha256');
     define('CLOUD_STORAGE_ACCOUNT', "cubecamp");
-    define('CLOUD_STORAGE_KEY', "aiIULTxrqWE+RAkP5lbyH1Rf8+ISawOFXGpJLcDXi+K4+mmLNFMPftTV+4EK6gBk++Ks1qe5e566HIlsrgNQwA==");
+    define('CLOUD_STORAGE_KEY', "blob_primary_access_key");
 /* For AZURE CONFIG FILE SETTING
     $eccube_install = azure_getconfig(“EC-CUBE.ECCUBE_INSTALL”);
     define ('ECCUBE_INSTALL', $eccube_install);
